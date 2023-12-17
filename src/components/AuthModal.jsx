@@ -10,7 +10,6 @@ const customStyles = {
 		bottom: 'auto',
 		marginRight: '-50%',
 		height: '500px',
-		width: '470px',
 		transform: 'translate(-50%, -50%)',
 		borderRadius: '25px',
 	},
@@ -40,7 +39,7 @@ const AuthModal = ({ modalIsOpen, setIsOpen, text }) => {
 							className='h-[80px] w-[80px] mx-auto my-6'
 						/>
 						<form className='space-y-4'>
-							<div className='w-full flex space-x-4'>
+							<div className='w-full flex flex-col md:flex-row space-x-4'>
 								<div className='flex flex-col'>
 									<label>First Name</label>
 									<input
@@ -49,9 +48,11 @@ const AuthModal = ({ modalIsOpen, setIsOpen, text }) => {
 									/>
 								</div>
 								<div className='flex flex-col'>
-									<label>Last Name</label>
+									<label className='-ml-4 mt-2 md:mt-0 md:ml-0'>
+										Last Name
+									</label>
 									<input
-										className='border border-gray outline-none mt-2 py-[5px] rounded pl-2'
+										className='border border-gray outline-none mt-2 py-[5px] rounded pl-2 -ml-4 md:ml-0'
 										placeholder='Enter Last Name'
 									/>
 								</div>

@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import AuthModal from './AuthModal';
+import { FaBars } from 'react-icons/fa6';
 
 const Navbar = () => {
 	const [modalIsOpen, setIsOpen] = useState(false);
 	const [text, setText] = useState('');
+	const [openSidebar, setOpenSidebar] = useState(false);
 
 	const openModal = () => {
 		setIsOpen(true);
@@ -16,22 +18,58 @@ const Navbar = () => {
 				<h1 className='text-2xl font-bold cursor-pointer'>
 					<Link to='/'>Realty Homes</Link>
 				</h1>
-				<ul className='flex ml-6 space-x-6 text-[#27B1BE] cursor-pointer'>
-					<li className=''>
+				<ul className='hidden md:flex ml-6 space-x-6 text-[#27B1BE] cursor-pointer '>
+					<li>
 						<Link to='/about-us'>About Us</Link>
 					</li>
-					<li className=''>
+					<li>
 						<Link to='/our-blog'>Our Blog</Link>
 					</li>
-					<li className=''>
+					<li>
 						<Link to='/listings'>Listings</Link>
 					</li>
-					<li className=''>
+					<li>
 						<Link to='/contact-us'>Contact Us</Link>
 					</li>
 				</ul>
+				{openSidebar && (
+					<ul className='md:hidden flex flex-col items-center bg-[#27B1BE] space-y-10 text-white cursor-pointer pt-8 mt-[578px] absolute right-0 w-[100vw] h-screen'>
+						<li>
+							<Link to='/about-us'>About Us</Link>
+						</li>{' '}
+						<li>
+							<Link to='/our-blog'>Our Blog</Link>
+						</li>
+						<li>
+							<Link to='/listings'>Listings</Link>
+						</li>
+						<li>
+							<Link to='/contact-us'>Contact Us</Link>
+						</li>
+						<li className='space-x-4'>
+							<button
+								className='text-white border border-white py-2 px-4 rounded'
+								onClick={() => {
+									setText('Login');
+									openModal();
+								}}
+							>
+								Login
+							</button>
+							<button
+								className='bg-white text-[#27B1BE] border border-[#27B1BE] py-2 px-4 rounded'
+								onClick={() => {
+									setText('Register');
+									openModal();
+								}}
+							>
+								Register
+							</button>
+						</li>
+					</ul>
+				)}
 			</div>
-			<div className='space-x-4'>
+			<div className='space-x-4 hidden md:block'>
 				<button
 					className='text-[#27B1BE] border border-[#27B1BE] py-2 px-4 rounded'
 					onClick={() => {
@@ -51,6 +89,10 @@ const Navbar = () => {
 					Register
 				</button>
 			</div>
+			<FaBars
+				className='text-2xl  md:hidden'
+				onClick={() => setOpenSidebar(!openSidebar)}
+			/>
 
 			<div className='hidden'>
 				<AuthModal
