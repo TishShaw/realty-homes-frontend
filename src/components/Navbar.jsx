@@ -33,7 +33,7 @@ const Navbar = () => {
 					</li>
 				</ul>
 				{openSidebar && (
-					<ul className='md:hidden flex flex-col items-center bg-[#27B1BE] space-y-10 text-white cursor-pointer pt-8 mt-[578px] absolute right-0 w-[100vw] h-screen'>
+					<ul className='md:hidden flex flex-col items-center bg-[#27B1BE] space-y-10 text-white cursor-pointer pt-8 mt-[837px] absolute right-0 w-[100vw] h-screen z-10'>
 						<li>
 							<Link to='/about-us'>About Us</Link>
 						</li>{' '}

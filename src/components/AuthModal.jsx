@@ -12,6 +12,7 @@ const customStyles = {
 		height: '500px',
 		transform: 'translate(-50%, -50%)',
 		borderRadius: '25px',
+		zIndex: '20px',
 	},
 };
 
