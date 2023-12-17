@@ -4,7 +4,7 @@ import { IoSearch } from 'react-icons/io5';
 
 const Hero = () => {
 	return (
-		<div className='w-full relative h-[750px]'>
+		<div className='w-full relative h-[500px]  xl:h-[800px]'>
 			<img
 				src={heroImg}
 				alt=''
