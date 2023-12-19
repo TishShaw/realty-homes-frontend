@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import AuthModal from './AuthModal';
 import { FaBars } from 'react-icons/fa6';
 
@@ -7,10 +7,15 @@ const Navbar = () => {
 	const [modalIsOpen, setIsOpen] = useState(false);
 	const [text, setText] = useState('');
 	const [openSidebar, setOpenSidebar] = useState(false);
+	const { pathname } = useLocation();
 
 	const openModal = () => {
 		setIsOpen(true);
 	};
+
+	useEffect(() => {
+		setOpenSidebar(false);
+	}, [pathname]);
 
 	return (
 		<div className='h-[60px] flex justify-between items-center px-6 shadow-md'>
@@ -18,7 +23,8 @@ const Navbar = () => {
 				<h1 className='text-2xl font-bold cursor-pointer'>
 					<Link to='/'>Realty Homes</Link>
 				</h1>
-				<ul className='hidden md:flex ml-6 space-x-6 text-[#27B1BE] cursor-pointer '>
+				<ul className='hidden md:flex ml-6 space-x-6 text-[#27B1BE] cursor-pointer'>
+					{' '}
 					<li>
 						<Link to='/about-us'>About Us</Link>
 					</li>
