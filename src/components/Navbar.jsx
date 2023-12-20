@@ -21,7 +21,9 @@ const Navbar = () => {
 		<div className='h-[60px] flex justify-between items-center px-6 shadow-md'>
 			<div className='flex items-center'>
 				<h1 className='text-2xl font-bold cursor-pointer'>
-					<Link to='/'>Realty Homes</Link>
+					<Link to='/'>
+						<span className='text-[#27B1BE]'>Realty</span> Homes
+					</Link>
 				</h1>
 				<ul className='hidden md:flex ml-6 space-x-6 text-[#27B1BE] cursor-pointer'>
 					{' '}
@@ -39,7 +41,7 @@ const Navbar = () => {
 					</li>
 				</ul>
 				{openSidebar && (
-					<ul className='md:hidden flex flex-col items-center bg-[#27B1BE] space-y-10 text-white cursor-pointer pt-8 mt-[837px] absolute right-0 w-[100vw] h-screen z-10'>
+					<ul className='md:hidden flex flex-col items-center bg-[#27B1BE] space-y-10 text-white cursor-pointer pt-8 mt-[837px] absolute right-0 w-[100vw] h-screen z-50'>
 						<li>
 							<Link to='/about-us'>About Us</Link>
 						</li>{' '}
@@ -96,7 +98,7 @@ const Navbar = () => {
 				</button>
 			</div>
 			<FaBars
-				className='text-2xl  md:hidden'
+				className='text-2xl md:hidden'
 				onClick={() => setOpenSidebar(!openSidebar)}
 			/>
 
