@@ -5,7 +5,7 @@ import { FaBars } from 'react-icons/fa6';
 
 const Navbar = () => {
 	const [modalIsOpen, setIsOpen] = useState(false);
-	const [text, setText] = useState('');
+	const [isLogin, setIsLogin] = useState(false);
 	const [openSidebar, setOpenSidebar] = useState(false);
 	const { pathname } = useLocation();
 
@@ -58,7 +58,7 @@ const Navbar = () => {
 							<button
 								className='text-white border border-white py-2 px-4 rounded'
 								onClick={() => {
-									setText('Login');
+									setIsLogin(true);
 									openModal();
 								}}
 							>
@@ -67,7 +67,7 @@ const Navbar = () => {
 							<button
 								className='bg-white text-[#27B1BE] border border-[#27B1BE] py-2 px-4 rounded'
 								onClick={() => {
-									setText('Register');
+									setIsLogin(false);
 									openModal();
 								}}
 							>
@@ -81,7 +81,7 @@ const Navbar = () => {
 				<button
 					className='text-[#27B1BE] border border-[#27B1BE] py-2 px-4 rounded'
 					onClick={() => {
-						setText('Login');
+						setIsLogin(true);
 						openModal();
 					}}
 				>
@@ -90,7 +90,7 @@ const Navbar = () => {
 				<button
 					className='bg-[#27B1BE] text-white py-2 px-4 rounded'
 					onClick={() => {
-						setText('Register');
+						setIsLogin(false);
 						openModal();
 					}}
 				>
@@ -107,7 +107,8 @@ const Navbar = () => {
 					modalIsOpen={modalIsOpen}
 					openModal={openModal}
 					setIsOpen={setIsOpen}
-					text={text}
+					isLogin={isLogin}
+					setIsLogin={setIsLogin}
 				/>
 			</div>
 		</div>
