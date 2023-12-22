@@ -17,7 +17,7 @@ const ListingsPage = () => {
 	const [active, setActive] = useState('grid');
 	const [selectedListingAddress, setSelectedListingAddress] = useState('');
 	const [filteredData, setFilteredData] = useState([]);
-
+	console.log(data);
 	const [filterParams, setFilterParams] = useState({
 		propertyType: {
 			singleFamilyHome: false,
