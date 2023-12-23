@@ -4,6 +4,8 @@ import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 import BlogPage from './pages/BlogPage';
 import BlogDetails from './components/BlogDetails';
+import ListingsPage from './pages/ListingsPage';
+import ListingDetailsPage from './pages/ListingDetailsPage';
 
 function App() {
 	return (
@@ -12,6 +14,8 @@ function App() {
 			<Route path='/about-us' element={<AboutPage />} />
 			<Route path='/our-blog' element={<BlogPage />} />
 			<Route path='/our-blog/:id' element={<BlogDetails />} />
+			<Route path='/listings' element={<ListingsPage />} />
+			<Route path='/listings/:id' element={<ListingDetailsPage />} />
 			<Route path='/contact-us' element={<ContactPage />} />
 		</Routes>
 	);
