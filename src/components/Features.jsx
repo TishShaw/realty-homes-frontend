@@ -28,11 +28,11 @@ const Features = () => {
 				Featured Listings
 			</h2>
 			<div className='w-full overflow-x-scroll md:flex md:justify-center md:overflow-none md:mt-10 md:mb-20'>
-				<div className='mt-2 flex w-[700px] overflow-hidden md:w-[900px] xl:w-[1200px] 2xl:w-[1800px] xl:space-x-8 2xl:space-x-16 md:pb-6'>
+				<div className='mt-2 flex w-[1000px] overflow-hidden md:w-[900px] xl:w-[1200px] 2xl:w-[1800px] xl:space-x-8 2xl:space-x-16 md:pb-6'>
 					{data?.slice(0, 3).map((listing, idx) => (
 						<div
 							key={idx}
-							className='shadow-md h-50 mr-4 border border-gray-300 rounded'
+							className='shadow-md w-[1000px] h-50 mr-4 border border-gray-300 rounded'
 							onClick={() => navigate(`/listings/${listing.id}`)}
 						>
 							<Card idx={idx} listing={listing} />
