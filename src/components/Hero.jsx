@@ -8,9 +8,9 @@ const Hero = () => {
 			<img
 				src={heroImg}
 				alt=''
-				className='h-[400px] md:h-[450px] xl:h-[800px] w-full bg-blend-darken'
+				className='h-[400px] md:h-[470px] xl:h-[800px] w-full bg-blend-darken'
 			/>
-			<div className='bg-black opacity-20 h-[400px] xl:h-[800px] absolute top-0 z-2 w-full left-0' />
+			<div className='bg-black opacity-20 h-[400px] md:h-[470px] xl:h-[800px] absolute top-0 z-2 w-full left-0' />
 			<div className='absolute text-white top-20 z-[100]flex items-center justify-center text-center mx-auto w-full px-10 md:px-20 lg:px-40 md:mt-[50px] xl:px-80 xl:mt-[150px] '>
 				<h1 className='w-full text-3xl md:text-4xl xl:text-6xl mb-4 font-bold'>
 					Journey To Your Perfect Home
