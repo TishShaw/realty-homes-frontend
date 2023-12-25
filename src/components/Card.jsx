@@ -42,7 +42,7 @@ const Card = ({ idx, listing, active }) => {
 				}   w-[650px] h-[150px]`}
 			/>
 			<div
-				className='text-xl md:text-2xl absolute text-white bg-[#27B1BE] m-2 rounded-full p-2 top-0 left-0 cursor-pointer'
+				className='text-xl md:text-2xl absolute text-white bg-[#27B1BE] m-2 rounded-full p-2 top-0 right-0 cursor-pointer'
 				onClick={(event) => {
 					event.stopPropagation();
 					if (!fav) {
@@ -55,31 +55,39 @@ const Card = ({ idx, listing, active }) => {
 				{fav ? <FaHeart /> : <FaRegHeart className='' />}
 			</div>
 			<div className='p-2'>
-				<p className='text-md md:text-lg mb-2 h-[50px]'>{listing.title}</p>
-				<p className='text-lg'>
-					<NumericFormat
-						value={Math.floor(listing.price)}
-						prefix='$'
-						thousandSeparator=','
-						displayType='text'
-						renderText={(value) => <b>{value}</b>}
-					/>
-				</p>
-				<div className='flex space-x-4 text-md mt-2'>
-					<p className='flex font-medium'>
-						{Math.floor(listing.num_of_bedrooms)}
-						{''}
-						<span className='text-gray-600 font-light'> Beds</span>
+				<div className='flex justify-between items-center'>
+					<p className='text-lg'>
+						<NumericFormat
+							value={Math.floor(listing.price)}
+							prefix='$'
+							thousandSeparator=','
+							displayType='text'
+							renderText={(value) => <b>{value}</b>}
+						/>
 					</p>
-					<p className='flex font-medium'>
-						{Math.floor(listing.num_of_bathrooms)}
-						<span className='text-gray-600 font-light'> Baths</span>
-					</p>
-					<p className='flex font-medium'>
-						{listing.sqft}
-						{'  '}
-						<span className='text-gray-600 font-light'> Sqft</span>
-					</p>
+					<div className='flex items-center space-x-2 text-sm md:text-md'>
+						<p className='flex font-medium'>
+							{Math.floor(listing.num_of_bedrooms)}
+							{''}
+							<span className='text-gray-600 font-light ml-[3px]'> bds</span>
+						</p>
+						<span className='font-bold text-lg'>&#183;</span>
+						<p className='flex font-medium'>
+							{Math.floor(listing.num_of_bathrooms)}
+							<span className='text-gray-600 font-light ml-[3px]'> Ba</span>
+						</p>
+						<span className='font-bold text-lg'>&#183;</span>
+						<p className='flex font-medium'>
+							{listing.sqft}
+							{'  '}
+							<span className='text-gray-600 font-light ml-[3px]'> Sqft</span>
+						</p>
+					</div>
+				</div>
+				<p className='text-sm md:text-md mt-2 h-[30px]'>{listing.title}</p>
+
+				<div className='flex text-md'>
+					<p className='text-[#27B1BE]'>{listing.listing_status}</p>
 				</div>
 			</div>
 		</div>
