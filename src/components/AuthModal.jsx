@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import {
+	loginUser,
+	registerUser,
+	fetchUserData,
+} from '../redux/auth/authSlice';
 import { useFormik } from 'formik';
 import Modal from 'react-modal';
 import thumbnail from '../assets/3651807.png';
 import { registerValidationSchema, loginValidationSchema } from '../schemas';
-import axios from 'axios';
 
 const customStyles = {
 	content: {
@@ -20,47 +25,9 @@ const customStyles = {
 };
 
 const AuthModal = ({ modalIsOpen, setIsOpen, isLogin, setIsLogin }) => {
-	const onRegisterSubmit = async (values, actions) => {
-		await axios
-			.post('http://localhost:8000/users/', {
-				first_name: values.firstName,
-				last_name: values.lastName,
-				email: values.email,
-				password: values.password,
-				re_password: values.confirmPassword,
-			})
-			.then((res) => {
-				console.log(res);
-			})
-			.catch((error) => {
-				console.error('Error submitting form: ', error.message);
-			});
-		actions.resetForm();
-	};
+	const dispatch = useDispatch();
 
-	const onLoginSubmit = async (values, actions) => {
-		await axios //
-			.post('http://localhost:8000/token/login/', {
-				email: values.email,
-				password: values.password,
-			})
-			.then((res) => {
-				console.log(res);
-			})
-			.catch((error) => {
-				console.error('Error submitting form: ', error.message);
-			});
-	};
-
-	const {
-		values,
-		errors,
-		touched,
-		isSubmitting,
-		handleBlur,
-		handleChange,
-		handleSubmit,
-	} = useFormik({
+	const { values, errors, touched, handleBlur, handleChange } = useFormik({
 		initialValues: isLogin
 			? { email: '', password: '' }
 			: {
@@ -73,15 +40,67 @@ const AuthModal = ({ modalIsOpen, setIsOpen, isLogin, setIsLogin }) => {
 		validationSchema: isLogin
 			? loginValidationSchema
 			: registerValidationSchema,
-		onSubmit: isLogin ? onLoginSubmit : onRegisterSubmit,
+		onSubmit: (values) => {
+			if (isLogin) {
+				dispatch(
+					loginUser({ username: values.email, password: values.password })
+				);
+
+				const token = JSON.parse(localStorage.getItem('user'));
+
+				dispatch(fetchUserData(token));
+
+				closeModal();
+			} else {
+				dispatch(
+					registerUser({
+						username: values.email,
+						first_name: values.firstName,
+						last_name: values.lastName,
+						email: values.email,
+						password: values.password,
+					})
+				);
+				setIsLogin(true);
+			}
+		},
 	});
+
+	const handleSubmit = async (event) => {
+		event.preventDefault();
+		if (isLogin) {
+			const action = await dispatch(
+				loginUser({ username: values.email, password: values.password })
+			);
+			if (loginUser.fulfilled.match(action)) {
+				const storedToken = localStorage.getItem('userToken');
+				if (storedToken) {
+					const tokenObject = JSON.parse(storedToken);
+					const accessToken = tokenObject.access;
+					dispatch(fetchUserData(accessToken));
+				}
+			}
+			closeModal();
+		} else {
+			dispatch(
+				registerUser({
+					username: values.email,
+					first_name: values.firstName,
+					last_name: values.lastName,
+					email: values.email,
+					password: values.password,
+				})
+			);
+			setIsLogin(true);
+		}
+	};
 
 	function closeModal() {
 		setIsOpen(false);
 	}
 
 	return (
-		<div>
+		<>
 			<Modal
 				isOpen={modalIsOpen}
 				onRequestClose={closeModal}
@@ -213,12 +232,7 @@ const AuthModal = ({ modalIsOpen, setIsOpen, isLogin, setIsLogin }) => {
 							</div>
 							<button
 								type='submit'
-								disabled={isSubmitting}
-								className={
-									isSubmitting
-										? 'bg-[#27B1BE] rounded w-full py-[8px] text-white opacity-50'
-										: 'bg-[#27B1BE] rounded w-full py-[8px] text-white '
-								}
+								className={'bg-[#27B1BE] rounded w-full py-[8px] text-white '}
 							>
 								Register
 							</button>
@@ -236,7 +250,7 @@ const AuthModal = ({ modalIsOpen, setIsOpen, isLogin, setIsLogin }) => {
 							className='h-[80px] w-[80px] mx-auto my-6'
 						/>
 
-						<form onSubmit={onLoginSubmit}>
+						<form onSubmit={handleSubmit}>
 							<div className='mb-6'>
 								<label>Email</label>
 								<input
@@ -287,7 +301,7 @@ const AuthModal = ({ modalIsOpen, setIsOpen, isLogin, setIsLogin }) => {
 					</div>
 				)}
 			</Modal>
-		</div>
+		</>
 	);
 };
 
