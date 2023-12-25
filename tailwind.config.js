@@ -2,7 +2,12 @@
 module.exports = {
 	content: ['./src/**/*.{js,jsx,ts,tsx}'],
 	theme: {
-		extend: {},
+		extend: {
+			animation: {
+				slide: 'slide 35s linear infinite',
+				slidePause: 'slide linear infinite paused',
+			},
+		},
 	},
 	plugins: [],
 };
