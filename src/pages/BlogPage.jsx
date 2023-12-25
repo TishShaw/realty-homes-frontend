@@ -19,7 +19,6 @@ const BlogPage = () => {
 		getNewsData();
 	}, []);
 
-	console.log(blogData);
 	return (
 		<div className='h-full w-full px-6 mb-20'>
 			<div className='relative'>
@@ -32,12 +31,12 @@ const BlogPage = () => {
 					<span className='text-sm md:text-lg font-medium text-[#27B1BE]'>
 						Our Blog
 					</span>
-					<h1 className='text-5xl md:text-6xl'>You're in Good Company</h1>
+					<h1 className='text-3xl md:text-6xl'>You're in Good Company</h1>
 					<p className='w-full md:text-2xl'>
 						Your Guide to Real Estate, Design, and Living the Dream
 					</p>
 				</div>
-				<div className='bg-gray-600 opacity-30 absolute h-[177px] md:h-[325px] w-full pt-6 top-6 z-2'></div>
+				<div className='bg-gray-900 opacity-30 absolute h-[177px] md:h-[325px] w-full pt-6 top-6 z-2'></div>
 			</div>
 			<div className='w-full md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 2xl:grid-cols-4   xl:gap-6'>
 				{blogData.map((data, idx) => (

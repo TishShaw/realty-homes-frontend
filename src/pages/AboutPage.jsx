@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import houseimgae from '../assets/tierra-mallorca-rgJ1J8SDEAY-unsplash.jpg';
 
 const AboutPage = () => {
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
 	return (
 		<div className='h-full w-full px-4 flex flex-col md:justify-center md:items-center md:relative'>
 			<div className='font-bold md:px-4 lg:px-40 pt-10 lg:pt-28 md:text-md lg:text-lg md:leading-8 lg:leading-10 md:mt-60 lg:mt-0'>
