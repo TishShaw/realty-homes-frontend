@@ -7,12 +7,12 @@ import axios from 'axios';
 const BlogPage = () => {
 	const [blogData, setBlogData] = useState([]);
 
-	// Third-party API
-	// https://newsdata.io/api/1/news?apikey={process.env.NEWS_DATA_API_KEY}&q=real%20estate&country=us&language=en
 	const getNewsData = () => {
 		axios
-			.get(`http://127.0.0.1:5500/news.json`)
-			.then((response) => setBlogData(response.data));
+			.get(
+				`https://newsdata.io/api/1/news?apikey=${process.env.REACT_APP_NEWS_DATA_API_KEY}&q=real%20estate&country=us&language=en`
+			)
+			.then((response) => setBlogData(response.data.results));
 	};
 	useEffect(() => {
 		window.scrollTo(0, 0);
