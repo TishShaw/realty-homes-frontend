@@ -36,6 +36,8 @@ const ListingDetailsPage = () => {
 			.get(`https://realty-homes-4290f3fd1ed3.herokuapp.com/properties/${id}/`)
 			.then((res) => setData(res.data))
 			.catch((err) => console.log(err));
+
+		window.scrollTo(0, 0);
 	}, []);
 
 	return (

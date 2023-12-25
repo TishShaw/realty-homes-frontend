@@ -17,7 +17,8 @@ const ListingsPage = () => {
 	const [active, setActive] = useState('grid');
 	const [selectedListingAddress, setSelectedListingAddress] = useState('');
 	const [filteredData, setFilteredData] = useState([]);
-	console.log(data);
+	const [isSticky, setSticky] = useState(false);
+
 	const [filterParams, setFilterParams] = useState({
 		propertyType: {
 			singleFamilyHome: false,
@@ -155,6 +156,12 @@ const ListingsPage = () => {
 		setFilteredData(filtered);
 	};
 
+	const handleScroll = () => {
+		const offset = window.scrollY;
+		const sticky = offset > 70;
+		setSticky(sticky);
+	};
+
 	useEffect(() => {
 		if (data.length === 0 || filteredData.length === 0) {
 			async function getData() {
@@ -165,14 +172,20 @@ const ListingsPage = () => {
 			getData();
 		}
 		applyFilters();
+
 		window.scrollTo(0, 0);
+
+		window.addEventListener('scroll', handleScroll);
+		return () => {
+			window.removeEventListener('scroll', () => handleScroll);
+		};
 	}, [filterParams, data]);
 
 	return (
 		<div className='h-full w-full mb-10 px-6'>
-			<div className='h-[70%] w-full grid'>
+			<div className='h-[70%] w-full md:grid'>
 				<div className='h-28 border-b-orange-500 w-full flex justify-between items-center px-6'>
-					<div className='shadow h-[60px] w-60 rounded flex justify-evenly items-center space-x-2 overflow-hidden'>
+					<div className='shadow h-[60px] w-60 rounded hidden md:flex justify-evenly items-center space-x-2 overflow-hidden'>
 						<div className='flex items-center text-2xl text-center h-full p-4 shadow'>
 							<GrLocation />
 						</div>
@@ -185,7 +198,11 @@ const ListingsPage = () => {
 							...
 						</p>
 					</div>
-					<div className='shadow h-[60px] w-[500px] rounded-full flex items-center pr-4'>
+					<div
+						className={`shadow h-[60px] w-full md:w-[500px] rounded-full flex items-center pr-4 ${
+							isSticky && 'bg-white fixed top-0 left-0 right-0 z-40'
+						}`}
+					>
 						<input
 							type='text'
 							className='h-full w-full outline-none px-4 pl-4 rounded-full text-md md:text-lg'
@@ -196,7 +213,7 @@ const ListingsPage = () => {
 							<IoSearch />
 						</div>
 					</div>
-					<div className='shadow h-[60px] w-60 rounded flex justify-around items-center text-2xl'>
+					<div className='shadow h-[60px] w-60 rounded  hidden md:flex justify-around items-center text-2xl'>
 						<div
 							className={`${
 								active === 'grid' && 'bg-[#27B1BE]'
@@ -233,7 +250,7 @@ const ListingsPage = () => {
 					</div>
 				</div>
 				<div className='flex h-screen'>
-					<div className='border border-gray-300 h-full w-[30%]'>
+					<div className='border border-gray-300 h-full w-[30%] hidden md:flex'>
 						<div className='p-4'>
 							<h2 className='text-2xl border-b-2 border-gray-100 pb-2 font-semibold'>
 								Filter by
@@ -244,7 +261,7 @@ const ListingsPage = () => {
 								<div className='p-4'>
 									<h2 className='text-lg font-medium'>Property Type</h2>
 								</div>
-								<div className=''>
+								<div>
 									<div className='flex justify-between items-center pt-2 px-4'>
 										<div className='flex items-center space-x-2'>
 											<input
@@ -314,7 +331,7 @@ const ListingsPage = () => {
 										</div>
 									</div>
 								</div>
-								<div className=''>
+								<div>
 									<div className='p-4'>
 										<h2 className='text-lg font-medium'>Price Range</h2>
 									</div>
@@ -387,7 +404,7 @@ const ListingsPage = () => {
 										</div>
 									</div>
 								</div>
-								<div className=''>
+								<div>
 									<div className='p-4'>
 										<h2 className='text-lg font-medium'>Bedrooms</h2>
 									</div>
@@ -477,7 +494,7 @@ const ListingsPage = () => {
 										</div>
 									</div>
 								</div>
-								<div className=''>
+								<div>
 									<div className='p-4'>
 										<h2 className='text-lg font-medium'>Bathrooms</h2>
 									</div>
@@ -570,12 +587,12 @@ const ListingsPage = () => {
 							</div>
 						</div>
 					</div>
-					<div className='border bg-[#27B1BE] h-screen w-full flex justify-start items-start pt-6 overflow-y-scroll px-12'>
+					<div className='h-screen w-full flex mx-auto md:justify-start md:items-start md:pt-6 md:overflow-y-scroll md:px-12'>
 						<div
 							className={
 								active === 'row'
 									? 'w-full'
-									: 'flex w-full overflow-hidden no-scrollbar md:pb-6 flex-wrap items-center  overflow-y-scroll'
+									: 'flex w-full overflow-hidden no-scrollbar md:pb-6 md:bg-[#27B1BE] flex-wrap items-center justify-center md:justify-start md:items-start overflow-y-scroll'
 							}
 						>
 							{filteredData.length > 0
@@ -583,11 +600,13 @@ const ListingsPage = () => {
 										<div
 											key={idx}
 											className={`${
-												active === 'row' ? 'h-40 w-full' : 'h-50 w-[220px]'
-											} shadow-md  border border-gray-300 rounded bg-white mt-2 mb-6 mr-6 cursor-pointer`}
+												active === 'row'
+													? 'h-40 w-full'
+													: 'h-50 w-full md:w-[220px]'
+											} shadow-md  border border-gray-300 rounded bg-white mt-2 mb-6 md:mr-6 cursor-pointer`}
 											onClick={() => handleListingClick(listing.title)}
 										>
-											<Link to={`/listings/${listing.slug}`}>
+											<Link to={`/listings/${listing.id}`}>
 												<Card listing={listing} active={active} />
 											</Link>
 										</div>
@@ -596,11 +615,13 @@ const ListingsPage = () => {
 										<div
 											key={idx}
 											className={`${
-												active === 'row' ? 'h-40 w-full' : 'h-50 w-[220px]'
-											} shadow-md  border border-gray-300 rounded bg-white mt-2 mb-6 mr-6 cursor-pointer`}
+												active === 'row'
+													? 'h-40 w-full'
+													: 'h-50 w-full md:w-[220px]'
+											} shadow-md  border border-gray-300 rounded bg-white mt-2 mb-6 md:mr-6 cursor-pointer`}
 											onClick={() => handleListingClick(listing.title)}
 										>
-											<Link to={`/listings/${listing.slug}`}>
+											<Link to={`/listings/${listing.id}`}>
 												<Card listing={listing} active={active} />
 											</Link>
 										</div>

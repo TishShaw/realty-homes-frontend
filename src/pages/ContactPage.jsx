@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import house from '../assets/Real_Estate_(201).png';
 import { MdMail } from 'react-icons/md';
 import { FaPhoneAlt } from 'react-icons/fa';
 import { HiLocationMarker } from 'react-icons/hi';
 
 const ContactPage = () => {
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
 	return (
 		<div className='h-full w-full px-6 flex justify-center items-center flex-col mb-20'>
 			<div className='flex justify-center items-center flex-col'>
@@ -15,10 +18,10 @@ const ContactPage = () => {
 				<div className='md:flex md:mt-8 md:space-x-3 xl:space-x-14 w-full'>
 					<div className='relative w-full mt-10 md:flex'>
 						<div className='shadow-lg w-[250px] lg:w-[300px] h-[180px] rounded text-center flex justify-center items-center flex-col mx-auto'>
-							<p className='flex justify-center items-center text-center'>
+							<div className='flex justify-center items-center text-center'>
 								<span className='z-20'>Help Center</span>
 								<div className='bg-gray-300 rounded-full w-12 h-12 absolute z-10'></div>
-							</p>
+							</div>
 							<p className='px-2 mt-4'>
 								Lorem ipsum dolor sit, amet consectetur adipisicing elit.
 								Impedit, tenetur.
@@ -27,10 +30,10 @@ const ContactPage = () => {
 					</div>
 					<div className='relative w-full mt-10'>
 						<div className='shadow-lg w-[250px] lg:w-[300px] h-[180px] rounded text-center flex justify-center items-center flex-col mx-auto'>
-							<p className='flex justify-center items-center text-center'>
+							<div className='flex justify-center items-center text-center'>
 								<span className='z-20'>FAQs</span>
 								<div className='bg-gray-300 rounded-full w-12 h-12 absolute z-10'></div>
-							</p>
+							</div>
 							<p className='px-2 mt-4'>
 								Lorem ipsum dolor sit, amet consectetur adipisicing elit.
 								Impedit, tenetur.
@@ -39,10 +42,10 @@ const ContactPage = () => {
 					</div>
 					<div className='relative w-full mt-10'>
 						<div className='shadow-lg w-[250px] lg:w-[300px] h-[180px] rounded text-center flex justify-center items-center flex-col mx-auto'>
-							<p className='flex justify-center items-center text-center'>
+							<div className='flex justify-center items-center text-center'>
 								<span className='z-20'>Online Chat</span>
 								<div className='bg-gray-300 rounded-full w-12 h-12 absolute z-10'></div>
-							</p>
+							</div>
 							<p className='px-2 mt-4'>
 								Lorem ipsum dolor sit, amet consectetur adipisicing elit.
 								Impedit, tenetur.

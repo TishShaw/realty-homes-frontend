@@ -36,7 +36,7 @@ const MapGrid = ({ listings, selectedAddress }) => {
 				const response = await axios.get(
 					`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
 						selectedAddress
-					)}&key=AIzaSyARKvVKZFfgds0PWtJatS4snEZ9f99KU_0
+					)}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
 `
 				);
 				const { lat, lng } = response.data?.results[0]?.geometry?.location;
