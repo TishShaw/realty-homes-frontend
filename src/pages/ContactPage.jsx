@@ -1,124 +1,90 @@
-import React, { useEffect } from 'react';
-import house from '../assets/Real_Estate_(201).png';
-import { MdMail } from 'react-icons/md';
-import { FaPhoneAlt } from 'react-icons/fa';
-import { HiLocationMarker } from 'react-icons/hi';
+import React, { useState, useEffect } from 'react';
+import ChatModal from '../components/ChatModal';
+import HelpModal from '../components/HelpModal';
+import FaqModal from '../components/FaqModal';
+import ContactForm from '../components/ContactForm';
+import { contactPageData } from '../utils/Data';
 
 const ContactPage = () => {
+	const [openChat, setOpenChat] = useState(false);
+	const [openHelp, setOpenHelp] = useState(false);
+	const [openFAQs, setOpenFAQs] = useState(false);
+
+	const handleOpenModal = () => {
+		if (openHelp) {
+			setOpenChat(false);
+			setOpenFAQs(false);
+			setOpenHelp(true);
+		} else if (openFAQs) {
+			setOpenChat(false);
+			setOpenHelp(false);
+			setOpenFAQs(true);
+		} else if (openChat) {
+			setOpenFAQs(false);
+			setOpenHelp(false);
+			setOpenChat(true);
+		}
+	};
+
 	useEffect(() => {
 		window.scrollTo(0, 0);
 	}, []);
 	return (
 		<div className='h-full w-full px-6 flex justify-center items-center flex-col mb-20'>
-			<div className='flex justify-center items-center flex-col'>
-				<h1 className='text-3xl md:text-2xl font-bold mt-10 md:mt-20'>
-					Contact Us
-				</h1>
-				<p className='text-center px-6 mt-2'>Lorem ipsum dolos dicta</p>
-				<div className='md:flex md:mt-8 md:space-x-3 xl:space-x-14 w-full'>
-					<div className='relative w-full mt-10 md:flex'>
-						<div className='shadow-lg w-[250px] lg:w-[300px] h-[180px] rounded text-center flex justify-center items-center flex-col mx-auto'>
-							<div className='flex justify-center items-center text-center'>
-								<span className='z-20'>Help Center</span>
-								<div className='bg-gray-300 rounded-full w-12 h-12 absolute z-10'></div>
-							</div>
-							<p className='px-2 mt-4'>
-								Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-								Impedit, tenetur.
-							</p>
-						</div>
-					</div>
-					<div className='relative w-full mt-10'>
-						<div className='shadow-lg w-[250px] lg:w-[300px] h-[180px] rounded text-center flex justify-center items-center flex-col mx-auto'>
-							<div className='flex justify-center items-center text-center'>
-								<span className='z-20'>FAQs</span>
-								<div className='bg-gray-300 rounded-full w-12 h-12 absolute z-10'></div>
-							</div>
-							<p className='px-2 mt-4'>
-								Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-								Impedit, tenetur.
-							</p>
-						</div>
-					</div>
-					<div className='relative w-full mt-10'>
-						<div className='shadow-lg w-[250px] lg:w-[300px] h-[180px] rounded text-center flex justify-center items-center flex-col mx-auto'>
-							<div className='flex justify-center items-center text-center'>
-								<span className='z-20'>Online Chat</span>
-								<div className='bg-gray-300 rounded-full w-12 h-12 absolute z-10'></div>
-							</div>
-							<p className='px-2 mt-4'>
-								Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-								Impedit, tenetur.
-							</p>
-						</div>
-					</div>
+			<div className='flex justify-center items-center flex-col cursor-pointer'>
+				<h1 className='text-3xl font-bold mt-10 md:mt-20'>Contact Us</h1>
+				<div className='w-[250px] mt-[8px]'>
+					<svg
+						xmlns='http://www.w3.org/2000/svg'
+						viewBox='0 0 1729 149'
+						fill='#27B1BE'
+					>
+						<path d='M1689.89 26.59a4479.17 4479.17 0 0 0-89.64-7.41C1354.1.45 1106.56-5.76 859.92 5.93c-227.31-4.25-454.79 8.96-681.36 27.95C121.94 38.9 65.1 40.2 8.38 42.12c-16.57 2.86-5.23 26.39 5.6 14.46 160.76-1.27 331.82-27.38 620.54-34.8A4574.9 4574.9 0 0 0 498.9 36.57C376.43 52.24 253.01 65.21 132.88 94.51c-36.16 8.94-71.67 20.31-106.69 32.95-7.14 4.4-27.74 3.63-24.98 15.62 1.99 7.19 13.63 7.05 18.04 2.59 143.67-54.58 297.49-70.64 448.88-90.24 129.01-16.82 258.61-28.01 388.46-34.27 285.02 6.07 570.13 38.15 848.22 100.65 3.84 1.09 8.24-1.32 9.23-5.24 1.98-7.31-5.66-9.96-11.42-10.6-48.05-10.76-96.18-21.26-144.56-30.43-160.68-28.2-322.86-46.78-485.4-60.19l-2.34-.16c161.55-1.33 323.21 4.35 484.31 15.71 37.11 2.65 125.06 8.85 164.97 13.96a7.58 7.58 0 0 0 8.45-6.41c.94-13.18-23.48-8.77-38.14-11.86Z'></path>
+					</svg>
 				</div>
-				<div className='flex flex-col-reverse md:flex-row shadow-xl h-[1200px]  md:h-[500px] w-full md:w-[90%] md:mt-40 justify-center items-center mt-20'>
-					<div className='h-full w-full'>
-						<h3 className='font-bold text-2xl px-6 mt-10 md:mt-0 md:pt-10'>
-							Send Us a Email
-						</h3>
-						<p className='px-6 pt-4'>
-							Send us a quick message and we’ll get right back to you.
-						</p>
-						<div className='pt-6 pl-6 space-y-4'>
-							<div className='md:flex'>
-								<div className='pb-4 md:pb-0'>
-									<label className='pb-2'>First Name</label>
-									<input
-										type='text'
-										className='border border-gray-300 p-2 outline-none mt-2 md:mt-0 w-[95%]'
-									/>
-								</div>
-								<div className=''>
-									<label className='pb-2'>Last Name</label>
-									<input
-										type='text'
-										className='border border-gray-300 p-2 outline-none mt-2 md:mt-0 w-[95%]'
-									/>
-								</div>
-							</div>
-							<div className='flex flex-col'>
-								<label className='pb-2'>Email</label>
-								<input
-									type='text'
-									className='border border-gray-300 p-2 outline-none w-[95%]'
-								/>
-							</div>
-							<div className='flex flex-col'>
-								<label className='pb-2'>Message</label>
-								<input
-									type='text'
-									className='border border-gray-300 p-2 outline-none w-[95%]'
-								/>
-							</div>
-						</div>
-						<button className='bg-[#27B1BE] text-white px-8 py-2 mt-8 flex justify-center items-center mx-auto'>
-							Send
-						</button>
-					</div>
+				<div className='flex flex-col md:flex-row items-center justify-center space-x-6'>
+					{contactPageData.map((item, idx) => (
+						<div
+							className='md:flex md:mt-8 md:space-x-3 xl:space-x-14 w-full'
+							onClick={() => {
+								if (idx === 0) {
+									setOpenHelp(true);
+								} else if (idx === 1) {
+									setOpenFAQs(true);
+								} else {
+									setOpenChat(true);
+								}
 
-					<div className='bg-[#27B1BE] h-[550px] md:h-full w-full flex flex-col-reverse md:flex-col justify-center items-center pt-10 pb-20 md:pb-0'>
-						<div className='mx-auto space-y-10 md:space-y-6 text-sm'>
-							<div className='flex justify-start items-center'>
-								<MdMail className='h-6 w-6 md:mr-4 mx-4' />
-								realtyhomes.co@email.com
-							</div>
-							<div className='flex justify-start items-center'>
-								<FaPhoneAlt className='h-6 w-6 md:mr-4 mx-4' />
-								412-456-6732
-							</div>
-							<div className='flex justify-start items-center'>
-								<HiLocationMarker className='h-6 w-6 md:mr-4 mx-4' />
-								123 Seasame Street, Chicago, Illinois 21227
+								handleOpenModal();
+							}}
+						>
+							<div className='relative w-full mt-10 md:flex'>
+								<div className='shadow-lg w-[250px] lg:w-[320px] h-[200px] rounded text-center flex justify-center items-center flex-col mx-auto'>
+									<div className='flex justify-center items-center text-center'>
+										<span className='z-20'>{item.name}</span>
+										<div className='bg-gray-300 rounded-full w-12 h-12 absolute z-10'></div>
+									</div>
+									<p className='px-2 mt-6'>{item.text}</p>
+								</div>
 							</div>
 						</div>
-						<img
-							src={house}
-							alt='house-vector'
-							className='w-[350px] h-[250px] md:h-[300px] text-white flex justify-center items-center mx-auto'
-						/>
-					</div>
+					))}
+				</div>
+				<ContactForm />
+				<div className='z-50 bottom-0 right-0 fixed mr-8'>
+					{openHelp && (
+						<HelpModal setOpenHelp={setOpenHelp} openHelp={openHelp} />
+					)}
+				</div>
+				<div className='z-50 bottom-0 right-0 fixed mr-8'>
+					{openFAQs && (
+						<FaqModal setOpenFAQs={setOpenFAQs} openFAQs={openFAQs} />
+					)}
+				</div>
+				<div className='z-50 bottom-0 right-0 fixed mr-8'>
+					{openChat && (
+						<ChatModal setOpenChat={setOpenChat} openChat={openChat} />
+					)}
 				</div>
 			</div>
 		</div>
