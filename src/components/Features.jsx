@@ -33,7 +33,7 @@ const Features = () => {
 						<div
 							key={idx}
 							className='shadow-md w-[1000px] h-50 mr-4 border border-gray-300 rounded'
-							onClick={() => navigate(`/listings/${listing.id}`)}
+							onClick={() => navigate(`/listings/${listing?.id}`)}
 						>
 							<Card idx={idx} listing={listing} />
 						</div>
@@ -87,7 +87,7 @@ const Features = () => {
 						onTouchStart={handlePause}
 						onTouchEnd={handleResume}
 					>
-						{testimonalArr.map((item, idx) => (
+						{testimonalArr?.map((item, idx) => (
 							<div
 								key={idx}
 								className='shadow-xl h-full w-full rounded  md:w-full text-center p-6 bg-[#27B1BE]'
