@@ -23,7 +23,7 @@ const Features = () => {
 	}, []);
 
 	return (
-		<div className='h-full px-4 md:pt-10 w-full mb-20'>
+		<div className='h-full px-4 md:pt-10 w-full -mb-10 md:mb-0'>
 			<h2 className='mt-36 text-xl font-bold mb-6 md:text-3xl xl:text-4xl 2xl:text-4xl text-center md:mt-10'>
 				Featured Listings
 			</h2>
@@ -33,7 +33,7 @@ const Features = () => {
 						<div
 							key={idx}
 							className='shadow-md w-[1000px] h-50 mr-4 border border-gray-300 rounded'
-							onClick={() => navigate(`/listings/${listing.id}`)}
+							onClick={() => navigate(`/listings/${listing?.id}`)}
 						>
 							<Card idx={idx} listing={listing} />
 						</div>
@@ -72,14 +72,14 @@ const Features = () => {
 					<h1 className='text-center text-2xl md:text-3xl font-bold md:font-medium  bg-[#27B1BE] md:bg-white w-full -mb-2 p-2 h-20 flex justify-center items-center'>
 						Your In Good Company
 					</h1>
-					<span className='hidden md:block mb-12'>
+					<span className='hidden md:block mb-12 md:mb-10'>
 						Where Possibilities Meet Perfect Realities.
 					</span>
 				</div>
 
-				<div className='md:w-[700px]  px-10  overflow-hidden'>
+				<div className='w-[1500px] h-[400px] overflow-hidden mt-16 md:mt-2'>
 					<div
-						className={`hover::animate-slide-0 animate-slide flex md:mt-10 w-full space-x-6  justify-center items-center transform ${
+						className={`hover::animate-slide-0 animate-slide flex md:mt-10 w-[900px] space-x-8  justify-start items-center transform ${
 							isPaused ? 'animate-slidePause' : 'animate-slide'
 						}`}
 						onMouseEnter={handlePause}
@@ -87,14 +87,14 @@ const Features = () => {
 						onTouchStart={handlePause}
 						onTouchEnd={handleResume}
 					>
-						{testimonalArr.map((item, idx) => (
+						{testimonalArr?.map((item, idx) => (
 							<div
 								key={idx}
-								className='shadow-xl h-20 w-[300px] md:w-full text-center p-6 bg-[#27B1BE]'
+								className='shadow-xl h-full w-full rounded  md:w-full text-center p-6 bg-[#27B1BE]'
 							>
-								<p className='text-md'>{item.testimony}</p>
+								<p className='text-md w-[300px]'>"{item.testimony}"</p>
 								<p className='mt-2'>{item.name}</p>
-								<p className='text-gray-400 text-sm'>{item.title}</p>
+								<p className='text-gray-600 text-sm'>{item.title}</p>
 							</div>
 						))}
 					</div>
