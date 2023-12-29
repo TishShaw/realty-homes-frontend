@@ -60,9 +60,9 @@ const ContactPage = () => {
 						>
 							<div className='relative w-full mt-10 md:flex'>
 								<div className='shadow-lg w-[250px] lg:w-[320px] h-[200px] rounded text-center flex justify-center items-center flex-col mx-auto'>
-									<div className='flex justify-center items-center text-center'>
+									<div className='flex justify-center items-center text-center z-10'>
 										<span className='z-20'>{item.name}</span>
-										<div className='bg-gray-300 rounded-full w-12 h-12 absolute z-10'></div>
+										<div className='bg-gray-300 rounded-full w-12 h-12 absolute'></div>
 									</div>
 									<p className='px-2 mt-6'>{item.text}</p>
 								</div>

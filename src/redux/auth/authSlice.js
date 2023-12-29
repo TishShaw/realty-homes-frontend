@@ -50,7 +50,6 @@ export const addFavorite = createAsyncThunk(
 		} catch (error) {
 			if (error.response.status === 401) {
 				const newAccessToken = await refreshToken();
-				console.log('New access token:', newAccessToken);
 				if (newAccessToken) {
 					try {
 						const response = await axios.post(
@@ -65,7 +64,7 @@ export const addFavorite = createAsyncThunk(
 						);
 						return listing.id;
 					} catch (error) {
-						console.log('Second error: ', error.message);
+						console.log(error.message);
 					}
 				} else {
 					return rejectWithValue(error.response.data);
@@ -107,7 +106,7 @@ export const removeFavorite = createAsyncThunk(
 					);
 					return listing.id;
 				} catch (error) {
-					console.log('Second error: ', error.message);
+					console.log(error.message);
 				}
 			} else {
 				console.log('No new token');

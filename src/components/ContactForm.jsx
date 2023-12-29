@@ -56,8 +56,9 @@ const ContactForm = () => {
 					</div>
 					<div className='flex flex-col'>
 						<label className='pb-2'>Message</label>
-						<input
+						<textarea
 							type='text'
+							name='message'
 							className='border border-gray-300 p-2 outline-none w-[95%]'
 						/>
 					</div>

@@ -20,7 +20,8 @@ const customStyles = {
 		height: '500px',
 		transform: 'translate(-50%, -50%)',
 		borderRadius: '25px',
-		zIndex: '20px',
+		backgroundColor: '#F9F9F9',
+		zIndex: '500px',
 	},
 };
 

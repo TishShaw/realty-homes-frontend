@@ -47,10 +47,12 @@ const AccountPage = () => {
 				</div>
 				<div className='h-[100%] w-full md:w-[70%] pt-0 flex flex-wrap pl-8 mt-6 md:mt-0'>
 					{user.userprofile.favorites?.map((item, idx) => (
-						<div key={idx} className='w-full md:w-[300px] shadow mr-6 mb-6'>
-							<Link to={`listings/${item.slug}`}>
-								<Card key={idx} listing={item} />
-							</Link>
+						<div
+							key={idx}
+							className='w-full md:w-[300px] shadow mr-6 mb-6'
+							onClick={() => navigate(`listings/${item.id}`)}
+						>
+							<Card key={idx} listing={item} />
 						</div>
 					))}
 				</div>
