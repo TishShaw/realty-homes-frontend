@@ -29,18 +29,22 @@ const BlogPage = () => {
 
 				<div className='bg-gray-900 opacity-30 absolute h-[177px] md:h-[325px] w-full pt-6 top-6 z-2'></div>
 			</div>
-			<div className='mt-6 flex items-center text-md'>
+			<div className='mt-6 flex items-center text-md w-full'>
 				<p className='mr-4 font-semibold'>Tags:</p>
 				<div className='space-x-6 flex items-center'>
-					{blogData[0].keywords?.map((tag, idx) => (
-						<div className='text-[#27B1BE]' key={idx}>
-							{tag}
+					{blogData?.slice(0, 3).map((blog, idx) => (
+						<div className='text-[#27B1BE] flex items-center' key={idx}>
+							{blog?.keywords?.map((tag, idx) => (
+								<div key={idx} className='mr-4'>
+									{tag}
+								</div>
+							))}
 						</div>
 					))}
 				</div>
 			</div>
 			<div className='w-full md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 2xl:grid-cols-4 xl:gap-6'>
-				{blogData.map((data, idx) => (
+				{blogData?.map((data, idx) => (
 					<div key={idx} className='h-full w-full mt-8 md:mt-10'>
 						<Link to={`/our-blog/${data.article_id}`}>
 							<div className='shadow-md h-[340px] w-full mb-6'>
