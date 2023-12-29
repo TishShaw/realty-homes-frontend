@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { BsGrid } from 'react-icons/bs';
 import { FaBars } from 'react-icons/fa6';
 import { TbTableColumn } from 'react-icons/tb';
@@ -9,7 +10,13 @@ import Card from '../components/Card';
 import axios from 'axios';
 import MapGrid from '../components/MapGrid';
 
+function useQuery() {
+	return new URLSearchParams(useLocation().search);
+}
+
 const ListingsPage = () => {
+	const query = useQuery();
+	const searchTerm = query.get('search');
 	const [data, setData] = useState([]);
 	const [row, setRow] = useState(false);
 	const [grid, setGrid] = useState(false);
@@ -18,6 +25,8 @@ const ListingsPage = () => {
 	const [selectedListingAddress, setSelectedListingAddress] = useState('');
 	const [filteredData, setFilteredData] = useState([]);
 	const [isSticky, setSticky] = useState(false);
+
+	const navigate = useNavigate();
 
 	const [filterParams, setFilterParams] = useState({
 		propertyType: {
@@ -163,28 +172,52 @@ const ListingsPage = () => {
 	};
 
 	useEffect(() => {
+		async function getData() {
+			await axios
+				.get('https://realty-homes-4290f3fd1ed3.herokuapp.com/properties/')
+				.then((response) => setData(response.data));
+		}
 		if (data.length === 0 || filteredData.length === 0) {
-			async function getData() {
-				await axios
-					.get('https://realty-homes-4290f3fd1ed3.herokuapp.com/properties/')
-					.then((response) => setData(response.data));
-			}
 			getData();
 		}
-		applyFilters();
-
 		window.scrollTo(0, 0);
+	}, []);
+	useEffect(() => {
+		if (searchTerm) {
+			const results = data.filter((listing) => {
+				const titleMatch = listing.title
+					?.toLowerCase()
+					.includes(searchTerm.toLowerCase());
+				const addressMatch = listing?.address
+					?.toLowerCase()
+					.includes(searchTerm.toLowerCase());
+				const cityMatch = listing?.city
+					?.toLowerCase()
+					.includes(searchTerm.toLowerCase());
+				const zipCodeMatch = listing?.zip_code
+					?.toString()
+					.includes(searchTerm.toLowerCase());
+
+				return titleMatch || addressMatch || cityMatch || zipCodeMatch;
+			});
+
+			setFilteredData(results);
+		}
 
 		window.addEventListener('scroll', handleScroll);
 		return () => {
 			window.removeEventListener('scroll', () => handleScroll);
 		};
-	}, [filterParams, data]);
+	}, [data, searchTerm]);
+
+	useEffect(() => {
+		applyFilters();
+	}, [filterParams]);
 
 	return (
-		<div className='h-full w-full mb-10 px-6'>
+		<div className='h-[100vh] w-full px-6 mb-40'>
 			<div className='h-[70%] w-full md:grid'>
-				<div className='h-28 border-b-orange-500 w-full flex justify-between items-center px-6'>
+				<div className='h-28 border-b-orange-500 w-full flex justify-between items-center'>
 					<div className='shadow h-[60px] w-60 rounded hidden md:flex justify-evenly items-center space-x-2 overflow-hidden'>
 						<div className='flex items-center text-2xl text-center h-full p-4 shadow'>
 							<GrLocation />
@@ -200,7 +233,7 @@ const ListingsPage = () => {
 					</div>
 					<div
 						className={`shadow h-[60px] w-full md:w-[500px] rounded-full flex items-center pr-4 ${
-							isSticky && 'bg-white fixed top-0 left-0 right-0 z-40'
+							isSticky && 'bg-white fixed md:static top-0 left-0 right-0 z-40'
 						}`}
 					>
 						<input
@@ -213,7 +246,7 @@ const ListingsPage = () => {
 							<IoSearch />
 						</div>
 					</div>
-					<div className='shadow h-[60px] w-60 rounded  hidden md:flex justify-around items-center text-2xl'>
+					<div className='shadow h-[60px] w-60 rounded hidden md:flex justify-around items-center text-2xl'>
 						<div
 							className={`${
 								active === 'grid' && 'bg-[#27B1BE]'
@@ -250,7 +283,7 @@ const ListingsPage = () => {
 					</div>
 				</div>
 				<div className='flex h-screen'>
-					<div className='border border-gray-300 h-full w-[30%] hidden md:flex'>
+					<div className='border border-gray-300 h-full w-[30%] hidden md:flex flex-col'>
 						<div className='p-4'>
 							<h2 className='text-2xl border-b-2 border-gray-100 pb-2 font-semibold'>
 								Filter by
@@ -587,54 +620,68 @@ const ListingsPage = () => {
 							</div>
 						</div>
 					</div>
-					<div className='h-screen w-full flex mx-auto md:justify-start md:items-start md:pt-6 md:overflow-y-scroll md:px-12'>
-						<div
-							className={
-								active === 'row'
-									? 'w-full'
-									: 'flex w-full overflow-hidden no-scrollbar md:pb-6 md:bg-[#27B1BE] flex-wrap items-center justify-center md:justify-start md:items-start overflow-y-scroll'
-							}
-						>
-							{filteredData.length > 0
-								? filteredData.map((listing, idx) => (
-										<div
-											key={idx}
-											className={`${
-												active === 'row'
-													? 'h-40 w-full'
-													: 'h-50 w-full md:w-[220px]'
-											} shadow-md  border border-gray-300 rounded bg-white mt-2 mb-6 md:mr-6 cursor-pointer`}
-											onClick={() => handleListingClick(listing.title)}
-										>
-											<Link to={`/listings/${listing.id}`}>
-												<Card listing={listing} active={active} />
-											</Link>
-										</div>
-								  ))
-								: data?.map((listing, idx) => (
-										<div
-											key={idx}
-											className={`${
-												active === 'row'
-													? 'h-40 w-full'
-													: 'h-50 w-full md:w-[220px]'
-											} shadow-md  border border-gray-300 rounded bg-white mt-2 mb-6 md:mr-6 cursor-pointer`}
-											onClick={() => handleListingClick(listing.title)}
-										>
-											<Link to={`/listings/${listing.id}`}>
-												<Card listing={listing} active={active} />
-											</Link>
-										</div>
-								  ))}
+					<div
+						className={
+							filteredData.length < 4
+								? 'md:bg-[#27B1BE] w-full md:pt-6  h-full md:overflow-y-scroll '
+								: `w-full flex flex-col md:justify-around md:items-start overflow-y-scroll md:p-6 md:bg-[#27B1BE]`
+						}
+					>
+						<div className='hidden md:block pl-4 md:bg-[#27B1BE] w-full'>
+							<h1 className='text-2xl font-semibold'>
+								Maryland Homes For Sale
+							</h1>
+							<p className='text-gray-700'>
+								{filteredData.length > 0 ? filteredData.length : data?.length}{' '}
+								Homes Found
+							</p>
 						</div>
-						{active === 'map' && (
-							<div className='bg-gray-300 h-full w-[90%] ml-2 mt-2 rounded'>
-								<MapGrid
-									listings={data}
-									selectedAddress={selectedListingAddress}
-								/>
+						<div className='flex md:bg-[#27B1BE] w-full overflow-y-scroll'>
+							<div
+								className={`md:mt-8 w-full ${
+									active === 'row'
+										? ''
+										: 'flex overflow-hidden no-scrollbar md:pl-4 md:pb-6 flex-wrap items-center justify-center md:justify-start md:items-start overflow-y-scroll'
+								}`}
+							>
+								{filteredData?.length > 0
+									? filteredData?.map((listing, idx) => (
+											<div
+												key={idx}
+												className={`${
+													active === 'row'
+														? 'h-60 w-full'
+														: 'h-50 w-full md:w-[320px]'
+												} shadow-md  border border-gray-300 rounded bg-white mb-6 md:mr-4 cursor-pointer`}
+												onClick={() => handleListingClick(listing.title)}
+											>
+												<Card listing={listing} active={active} />
+											</div>
+									  ))
+									: data?.map((listing, idx) => (
+											<div
+												key={idx}
+												className={`w-full ${
+													active === 'row' ? 'h-60 w-full' : 'h-50 md:w-[320px]'
+												} shadow-md border border-gray-300 rounded bg-white mt-2 mb-6 md:mr-4 cursor-pointer`}
+												onClick={() => {
+													handleListingClick(listing.title);
+													navigate(`/listings/${listing.id}`);
+												}}
+											>
+												<Card listing={listing} active={active} />
+											</div>
+									  ))}
 							</div>
-						)}
+							{active === 'map' && (
+								<div className='bg-gray-300 h-full w-[90%] ml-2 mt-2 rounded'>
+									<MapGrid
+										listings={data}
+										selectedAddress={selectedListingAddress}
+									/>
+								</div>
+							)}
+						</div>
 					</div>
 				</div>
 			</div>

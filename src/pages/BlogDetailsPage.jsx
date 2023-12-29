@@ -3,18 +3,22 @@ import { Link, useParams } from 'react-router-dom';
 import Moment from 'react-moment';
 import axios from 'axios';
 
-const BlogDetails = () => {
+const BlogDetailsPage = () => {
 	const [post, setPost] = useState(null);
 	const id = useParams();
 
 	const getBlogPostDetails = () => {
-		axios.get('http://127.0.0.1:5500/news.json').then((res) => {
-			res.data?.map((content) => {
-				if (content?.article_id == id.id) {
-					setPost(content);
-				}
+		axios
+			.get(
+				`https://newsdata.io/api/1/news?apikey=${process.env.REACT_APP_NEWS_DATA_API_KEY}&q=real%20estate&country=us&language=en`
+			)
+			.then((res) => {
+				res.data?.results?.map((content) => {
+					if (content?.article_id === id.id) {
+						setPost(content);
+					}
+				});
 			});
-		});
 	};
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -47,7 +51,9 @@ const BlogDetails = () => {
 			<div className='bg-[#27B1BE] mt-6 p-4 text-sm md:text-md md:p-10 md:text-lg w-full'>
 				<div className=''>{post?.content.slice(0, 1400)}...</div>
 				<button className='mx-auto bg-white flex justify-center items-center px-4 py-2 mb-4 mt-6'>
-					<Link to={post?.link}>Read More</Link>
+					<Link to={post?.link} target='_blank'>
+						Read More
+					</Link>
 				</button>
 			</div>
 
@@ -60,4 +66,4 @@ const BlogDetails = () => {
 	);
 };
 
-export default BlogDetails;
+export default BlogDetailsPage;

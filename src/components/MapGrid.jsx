@@ -20,7 +20,7 @@ const FitBounds = ({ markers }) => {
 	return null;
 };
 
-const MapGrid = ({ listings, selectedAddress }) => {
+const MapGrid = ({ listings, listing, selectedAddress }) => {
 	const [markers, setMarkers] = useState([]);
 	const mapRef = useRef();
 	const markerRefs = useRef([]);
@@ -53,24 +53,35 @@ const MapGrid = ({ listings, selectedAddress }) => {
 				) {
 					markerRefs.current[selectedMarkerIndex].openPopup();
 				}
-			} else {
+			} else if (listings) {
 				const newMarkers = [];
 				for (let listing of listings) {
 					const response = await axios.get(
 						`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
 							listing.title
-						)}&key=AIzaSyARKvVKZFfgds0PWtJatS4snEZ9f99KU_0
+						)}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
 `
 					);
 					const { lat, lng } = response.data?.results[0]?.geometry?.location;
 					newMarkers.push({ lat, lng, title: listing.title });
 				}
 				setMarkers(newMarkers);
+			} else {
+				const newMarkers = [];
+				const response = await axios.get(
+					`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+						listing.title
+					)}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
+`
+				);
+				const { lat, lng } = response.data?.results[0]?.geometry?.location;
+				newMarkers.push({ lat, lng, title: listing.title });
+				setMarkers(newMarkers);
 			}
 		};
 
-		fetchGeocodeData();
-	}, [listings, selectedAddress]);
+		// fetchGeocodeData();
+	}, []);
 
 	return (
 		<MapContainer
@@ -83,7 +94,7 @@ const MapGrid = ({ listings, selectedAddress }) => {
 				url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 			/>
 			<MarkerClusterGroup>
-				{markers.map((marker, idx) => (
+				{markers?.map((marker, idx) => (
 					<Marker
 						key={idx}
 						position={[marker.lat, marker.lng]}
