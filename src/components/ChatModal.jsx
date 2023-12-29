@@ -1,7 +1,5 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { MdClose } from 'react-icons/md';
 
@@ -31,7 +29,7 @@ function ChatModal({ setOpenChat, openChat }) {
 				>
 					<MdClose />
 				</div>
-				<div className='h-full md:h-[500px] flex flex-col items-center justify-center rounded'>
+				<div className='h-full md:h-[500px] flex flex-col items-center justify-center'>
 					<div className=''>
 						<img
 							width='60'
@@ -43,7 +41,14 @@ function ChatModal({ setOpenChat, openChat }) {
 					</div>
 					<h1 className='text-2xl text-center font-bold'>Online Chat</h1>
 					<p className='text-md text-center mb-6'>Digital Assistant</p>
-					<div className='bg-gray-200 w-[100vw] h-full md:w-full '>X</div>
+					<div className='bg-gray-200 w-[100vw] h-full md:w-full flex justify-center items-center'>
+						<iframe
+							src='https://creator.voiceflow.com/prototype/658dae771f37e6d839becea8'
+							width='100%'
+							height='100%'
+							title='chatbot'
+						></iframe>
+					</div>
 				</div>
 			</Box>
 		</Modal>

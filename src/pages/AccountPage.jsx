@@ -45,9 +45,9 @@ const AccountPage = () => {
 						</li>
 					</ul>
 				</div>
-				<div className='h-[100%] w-full md:w-[70%] p-4 pt-0 flex flex-wrap pl-8 mt-6 md:mt-0'>
+				<div className='h-[100%] w-full md:w-[70%] pt-0 flex flex-wrap pl-8 mt-6 md:mt-0'>
 					{user.userprofile.favorites?.map((item, idx) => (
-						<div key={idx} className='w-full md:w-[230px] mr-8 shadow mb-6'>
+						<div key={idx} className='w-full md:w-[300px] shadow mr-6 mb-6'>
 							<Link to={`listings/${item.slug}`}>
 								<Card key={idx} listing={item} />
 							</Link>
