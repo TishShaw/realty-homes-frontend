@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { NumericFormat } from 'react-number-format';
 import MapGrid from '../components/MapGrid';
@@ -9,6 +9,7 @@ import { FaUser } from 'react-icons/fa6';
 import { AiOutlineMail } from 'react-icons/ai';
 import { FaPhone } from 'react-icons/fa6';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import emailjs from '@emailjs/browser';
 import axios from 'axios';
 
 const ListingDetailsPage = () => {
@@ -18,6 +19,29 @@ const ListingDetailsPage = () => {
 	const matches = useMediaQuery('(max-width:430px)');
 
 	const { id } = useParams();
+
+	const form = useRef();
+
+	const sendEmail = (e) => {
+		e.preventDefault();
+
+		emailjs
+			.sendForm(
+				process.env.REACT_APP_EMAILJS_SERVICE_ID,
+				process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+				form.current,
+				process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+			)
+			.then(
+				(result) => {
+					console.log(result.text);
+					console.log('message sent');
+				},
+				(error) => {
+					console.log(error.text);
+				}
+			);
+	};
 
 	const nextSlide = () => {
 		setCurrentSlide((currentSlide) =>
@@ -110,14 +134,7 @@ const ListingDetailsPage = () => {
 								<p>{data.sqft} Sqft</p>
 							</div>
 						</div>
-						<p className='text-lg mt-6'>
-							{data.description} Lorem ipsum dolor sit amet consectetur
-							adipisicing elit. Nemo temporibus assumenda obcaecati mollitia
-							repellendus sequi error quisquam cupiditate eius placeat.
-							Consequuntur dolores, ex tenetur sed distinctio sit? Soluta
-							tenetur provident distinctio, eveniet eos nulla, nostrum animi, et
-							dolore accusantium sapiente!
-						</p>
+						<p className='text-lg mt-6'>{data.description}</p>
 
 						<div>
 							<h2 className='text-2xl font-bold mt-20'>Features</h2>
@@ -132,7 +149,7 @@ const ListingDetailsPage = () => {
 								))}
 							</div>
 							<div className='w-full h-[300px]  mt-20'>
-								<MapGrid />
+								<MapGrid listing={data} />
 							</div>
 						</div>
 					</div>
@@ -144,11 +161,12 @@ const ListingDetailsPage = () => {
 							<p className='text-sm px-4 text-gray-700'>
 								Or call (555) 555- 1234 for more information
 							</p>
-							<form className='px-4'>
+							<form className='px-4' ref={form} onSubmit={sendEmail}>
 								<div className='flex items-center border border-gray-300 w-full px-4 py-2 rounded mt-6 outline-none'>
 									<FaUser className='text-gray-400' />
 									<input
 										type='text'
+										name='user_name'
 										className='ml-2 w-full outline-none'
 										placeholder='Full Name'
 									/>
@@ -157,6 +175,7 @@ const ListingDetailsPage = () => {
 									<AiOutlineMail className='text-gray-400' />
 									<input
 										type='text'
+										name='user_email'
 										className='ml-2 w-full outline-none'
 										placeholder='Email'
 									/>
@@ -170,8 +189,9 @@ const ListingDetailsPage = () => {
 									/>
 								</div>
 								<div className='flex items-center border border-gray-300 h-[80px] w-full px-4 py-2 rounded mt-6 outline-none'>
-									<input
+									<textarea
 										type='text'
+										name='message'
 										className='ml-2 h-full w-full outline-none'
 										placeholder='Message'
 									/>
