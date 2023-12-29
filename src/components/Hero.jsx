@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import heroImg from '../assets/hero.jpg';
+import { useNavigate } from 'react-router-dom';
 import { IoSearch } from 'react-icons/io5';
 
 const Hero = () => {
+	const navigate = useNavigate();
+
+	const [searchTerm, setSearchTerm] = useState('');
+	console.log(searchTerm);
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		navigate(`/listings?search=${searchTerm}`);
+		setSearchTerm('');
+	};
+
 	return (
 		<div className='w-full relative h-[300px] md:h-[450px] xl:h-[800px]'>
 			<img
@@ -21,15 +33,24 @@ const Hero = () => {
 						Where Possibilities Meet Perfect Realities.
 					</span>
 				</p>
-				<div className='h-0 bg-white relative mx-2 mt-2 md:mt-6 rounded-full'>
+				<form
+					className='h-0 bg-white relative mx-2 mt-2 md:mt-6 rounded-full'
+					onSubmit={handleSubmit}
+				>
 					<input
-						className='p-2 xl:p-4 rounded-md mt-6 outline-none w-full text-lg'
+						type='text'
+						value={searchTerm}
+						onChange={(e) => setSearchTerm(e.target.value)}
+						className='p-2 xl:p-4 rounded-md mt-6 outline-none w-full text-lg text-black'
 						placeholder='Address, City, or Zip Code...'
 					/>
-					<button className='bg-[#27B1BE] p-[6px] xl:p-2 text-lg lg:text-xl xl:text-3xl absolute right-0 top-6 rounded-md  mr-2 mt-[7px]'>
+					<button
+						type='submit'
+						className='bg-[#27B1BE] p-[6px] xl:p-2 text-lg lg:text-xl xl:text-3xl absolute right-0 top-6 rounded-md  mr-2 mt-[7px]'
+					>
 						<IoSearch />
 					</button>
-				</div>
+				</form>
 			</div>
 		</div>
 	);
