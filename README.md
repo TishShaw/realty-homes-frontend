@@ -24,6 +24,19 @@ Welcome to Realty Homes, a mobile-responsive real estate web application built w
 <div><img width="1163" alt="Screenshot 2023-12-15 at 1 36 14 PM" src="https://github.com/TishShaw/realty-homes-frontend/assets/92543814/56418f13-deda-4045-b8cb-ba456f17faf5">
 <img width="428" alt="Screenshot 2023-12-15 at 3 39 35 PM" src="https://github.com/TishShaw/realty-homes-frontend/assets/92543814/02aeed9f-1bb8-408c-8ca2-3f29adf55dbd"><div/>
 
+### App Scrrenshots
+
+<img width="1332" alt="Screenshot 2023-12-30 at 6 40 18 PM" src="https://github.com/TishShaw/realty-homes-frontend/assets/92543814/276098d5-bcc2-4cba-8866-c6ec07f1abf9">
+<img width="1326" alt="Screenshot 2023-12-30 at 6 41 51 PM" src="https://github.com/TishShaw/realty-homes-frontend/assets/92543814/79e26a52-1e6f-473f-addd-6821f1ccf94d">
+<img width="1322" alt="Screenshot 2023-12-30 at 6 42 04 PM" src="https://github.com/TishShaw/realty-homes-frontend/assets/92543814/952a069e-6320-4d99-8841-d95231897d43">
+<img width="1329" alt="Screenshot 2023-12-30 at 6 41 06 PM" src="https://github.com/TishShaw/realty-homes-frontend/assets/92543814/a86fceaf-4775-4f4a-9d80-a88dd1493518">
+
+<img width="1327" alt="Screenshot 2023-12-30 at 6 41 22 PM" src="https://github.com/TishShaw/realty-homes-frontend/assets/92543814/b862986f-44ce-46f0-a589-f516962d226f">
+
+
+<img width="1325" alt="Screenshot 2023-12-30 at 6 41 39 PM" src="https://github.com/TishShaw/realty-homes-frontend/assets/92543814/536f1ea2-76a4-45c3-a0ce-7104a691df52">
+
+
 ## User Stories
 
 As a user of Realty Homes, I can:
