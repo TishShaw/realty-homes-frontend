@@ -5,7 +5,6 @@ module.exports = {
 		extend: {
 			animation: {
 				slide: 'slide 35s linear infinite',
-				slidePause: 'slide linear infinite paused',
 			},
 		},
 	},
