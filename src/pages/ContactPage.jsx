@@ -45,6 +45,7 @@ const ContactPage = () => {
 				<div className='flex flex-col md:flex-row items-center justify-center space-x-6'>
 					{contactPageData.map((item, idx) => (
 						<div
+							key={idx}
 							className='md:flex md:mt-8 md:space-x-3 xl:space-x-14 w-full'
 							onClick={() => {
 								if (idx === 0) {

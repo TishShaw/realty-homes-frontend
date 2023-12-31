@@ -321,7 +321,7 @@ const ListingsPage = () => {
 														...filterParams,
 														propertyType: {
 															...filterParams.propertyType,
-															condoTownHouse: e.target.checked,
+															condoTownhouse: e.target.checked,
 														},
 													})
 												}
@@ -653,7 +653,10 @@ const ListingsPage = () => {
 														? 'h-60 w-full'
 														: 'h-50 w-full md:w-[320px]'
 												} shadow-md  border border-gray-300 rounded bg-white mb-6 md:mr-4 cursor-pointer`}
-												onClick={() => handleListingClick(listing.title)}
+												onClick={() => {
+													handleListingClick(listing.title);
+													navigate(`/listings/${listing.id}`);
+												}}
 											>
 												<Card listing={listing} active={active} />
 											</div>
@@ -675,10 +678,7 @@ const ListingsPage = () => {
 							</div>
 							{active === 'map' && (
 								<div className='bg-gray-300 h-full w-[90%] ml-2 mt-2 rounded'>
-									<MapGrid
-										listings={data}
-										selectedAddress={selectedListingAddress}
-									/>
+									<MapGrid listings={data} />
 								</div>
 							)}
 						</div>
