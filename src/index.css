@@ -17,3 +17,9 @@
 		transform: translateX(-50%);
 	}
 }
+
+@layer utilities {
+	.pause {
+		animation-play-state: paused;
+	}
+}

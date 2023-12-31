@@ -69,10 +69,10 @@ const Features = () => {
 
 			<div className='pt-2 flex justify-center items-center flex-col overflow-hidden'>
 				<div className='flex justify-center items-center flex-col pt-14 w-full '>
-					<h1 className='text-center text-2xl md:text-3xl font-bold md:font-medium  bg-[#27B1BE] md:bg-white w-full -mb-2 p-2 h-20 flex justify-center items-center'>
+					<h1 className='text-center text-2xl md:text-3xl bg-[#27B1BE] md:bg-white w-full -mb-2 p-2 h-20 flex justify-center items-center font-bold'>
 						Your In Good Company
 					</h1>
-					<span className='hidden md:block mb-12 md:mb-10'>
+					<span className='hidden md:block mb-12 md:mb-10 text-lg'>
 						Where Possibilities Meet Perfect Realities.
 					</span>
 				</div>
@@ -80,7 +80,7 @@ const Features = () => {
 				<div className='w-[1500px] h-[400px] overflow-hidden mt-16 md:mt-2'>
 					<div
 						className={`hover::animate-slide-0 animate-slide flex md:mt-10 w-[900px] space-x-8  justify-start items-center transform ${
-							isPaused ? 'animate-slidePause' : 'animate-slide'
+							isPaused ? 'pause' : 'animate-slide'
 						}`}
 						onMouseEnter={handlePause}
 						onMouseLeave={handleResume}
@@ -90,10 +90,10 @@ const Features = () => {
 						{testimonalArr?.map((item, idx) => (
 							<div
 								key={idx}
-								className='shadow-xl h-full w-full rounded  md:w-full text-center p-6 bg-[#27B1BE]'
+								className='shadow-xl h-full w-full rounded  md:w-full text-center p-6 bg-[#27B1BE] cursor-pointer'
 							>
 								<p className='text-md w-[300px]'>"{item.testimony}"</p>
-								<p className='mt-2'>{item.name}</p>
+								<p className='mt-2 font-semibold'>{item.name}</p>
 								<p className='text-gray-600 text-sm'>{item.title}</p>
 							</div>
 						))}
