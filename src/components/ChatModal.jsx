@@ -24,12 +24,12 @@ function ChatModal({ setOpenChat, openChat }) {
 		>
 			<Box sx={style}>
 				<div
-					className='absolute right-4 top-4 text-2xl cursor-pointer'
+					className='absolute right-8 md:right-0 top-4 md:top-2 text-2xl cursor-pointer w-[89%] md:w-full'
 					onClick={() => setOpenChat(false)}
 				>
 					<MdClose />
 				</div>
-				<div className='h-full md:h-[500px] flex flex-col items-center justify-center'>
+				<div className='h-[95vh] md:h-[500px] flex flex-col items-center justify-center '>
 					<div className=''>
 						<img
 							width='60'
