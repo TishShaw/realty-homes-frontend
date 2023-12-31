@@ -215,7 +215,7 @@ const ListingsPage = () => {
 	}, [filterParams]);
 
 	return (
-		<div className='h-full md:h-[100vh] w-full px-6 mb-10 md:mb-40'>
+		<div className='h-full w-full px-6 mb-10 md:mb-20'>
 			<div className='h-[70%] w-full md:grid'>
 				<div className='h-28 border-b-orange-500 w-full flex justify-between items-center'>
 					<div className='shadow h-[60px] w-60 rounded hidden md:flex justify-evenly items-center space-x-2 overflow-hidden'>
