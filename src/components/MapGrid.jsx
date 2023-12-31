@@ -80,7 +80,7 @@ const MapGrid = ({ listings, listing, selectedAddress }) => {
 			}
 		};
 
-		// fetchGeocodeData();
+		fetchGeocodeData();
 	}, []);
 
 	return (
