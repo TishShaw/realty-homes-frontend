@@ -7,7 +7,6 @@ const Hero = () => {
 	const navigate = useNavigate();
 
 	const [searchTerm, setSearchTerm] = useState('');
-	console.log(searchTerm);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();

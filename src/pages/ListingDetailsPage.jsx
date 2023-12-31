@@ -149,7 +149,7 @@ const ListingDetailsPage = () => {
 								))}
 							</div>
 							<div className='w-full h-[300px]  mt-20'>
-								<MapGrid listing={data} />
+								<MapGrid listing={data} address={data.title} />
 							</div>
 						</div>
 					</div>

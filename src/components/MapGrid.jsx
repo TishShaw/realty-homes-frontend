@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import { Icon } from 'leaflet';
 import MarkerClusterGroup from 'react-leaflet-cluster';
@@ -20,10 +20,8 @@ const FitBounds = ({ markers }) => {
 	return null;
 };
 
-const MapGrid = ({ listings, listing, selectedAddress }) => {
+const MapGrid = ({ listings, listing, address }) => {
 	const [markers, setMarkers] = useState([]);
-	const mapRef = useRef();
-	const markerRefs = useRef([]);
 
 	const customIcon = new Icon({
 		iconUrl: require('../assets/location-pin.png'),
@@ -32,28 +30,8 @@ const MapGrid = ({ listings, listing, selectedAddress }) => {
 
 	useEffect(() => {
 		const fetchGeocodeData = async () => {
-			if (selectedAddress) {
-				const response = await axios.get(
-					`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
-						selectedAddress
-					)}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
-`
-				);
-				const { lat, lng } = response.data?.results[0]?.geometry?.location;
-				setMarkers([{ lat, lng, title: selectedAddress }]);
-				if (mapRef.current) {
-					mapRef.current.flyTo([lat, lng], 10);
-				}
-				const selectedMarkerIndex = markers.findIndex(
-					(marker) => marker.title === selectedAddress
-				);
-				if (
-					selectedMarkerIndex !== -1 &&
-					markerRefs.current[selectedMarkerIndex]
-				) {
-					markerRefs.current[selectedMarkerIndex].openPopup();
-				}
-			} else if (listings) {
+			if (listings) {
+				console.log('listings');
 				const newMarkers = [];
 				for (let listing of listings) {
 					const response = await axios.get(
@@ -66,23 +44,39 @@ const MapGrid = ({ listings, listing, selectedAddress }) => {
 					newMarkers.push({ lat, lng, title: listing.title });
 				}
 				setMarkers(newMarkers);
-			} else {
-				const newMarkers = [];
-				const response = await axios.get(
-					`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
-						listing.title
-					)}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
-`
-				);
-				const { lat, lng } = response.data?.results[0]?.geometry?.location;
-				newMarkers.push({ lat, lng, title: listing.title });
-				setMarkers(newMarkers);
 			}
 		};
 
 		fetchGeocodeData();
-	}, []);
+	}, [listings]);
 
+	useEffect(() => {
+		async function fetchGeoData() {
+			const newMarkers = [];
+			if (address) {
+				const response = await axios.get(
+					`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+						address
+					)}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
+`
+				);
+				const lat = response.data?.results[0]?.geometry?.location?.lat;
+				const lng = response.data?.results[0]?.geometry?.location?.lng;
+				if (!lat || !lng) {
+					return <div>Loading...</div>; // Or any other loading state representation
+				} else {
+					const { lat, lng } = response.data?.results[0]?.geometry?.location;
+					newMarkers.push({ lat, lng, title: listing.title });
+					setMarkers(newMarkers);
+				}
+			}
+		}
+		fetchGeoData();
+	}, [address]);
+
+	if (listing && !address) {
+		return <div>Loading...</div>;
+	}
 	return (
 		<MapContainer
 			center={[51.505, -0.09]}
