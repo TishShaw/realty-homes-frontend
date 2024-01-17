@@ -31,7 +31,7 @@ const BlogPage = () => {
 			</div>
 			<div className='mt-6 flex items-center text-md w-full'>
 				<p className='mr-4 font-semibold'>Tags:</p>
-				<div className='space-x-6 flex items-center'>
+				<div className='space-x-6 flex items-center overflow-scroll'>
 					{blogData?.slice(0, 3).map((blog, idx) => (
 						<div className='text-[#27B1BE] flex items-center' key={idx}>
 							{blog?.keywords?.map((tag, idx) => (
