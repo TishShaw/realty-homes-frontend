@@ -70,7 +70,7 @@ const Features = () => {
 			<div className='pt-2 flex justify-center items-center flex-col overflow-hidden'>
 				<div className='flex justify-center items-center flex-col pt-14 w-full '>
 					<h1 className='text-center text-2xl md:text-3xl bg-[#27B1BE] md:bg-white w-full -mb-2 p-2 h-20 flex justify-center items-center font-bold'>
-						Your In Good Company
+						You're In Good Company
 					</h1>
 					<span className='hidden md:block mb-12 md:mb-10 text-lg'>
 						Where Possibilities Meet Perfect Realities.

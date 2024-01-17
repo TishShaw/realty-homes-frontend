@@ -81,7 +81,7 @@ const MapGrid = ({ listings, listing, address }) => {
 		<MapContainer
 			center={[51.505, -0.09]}
 			zoom={5}
-			style={{ width: '100%', height: '100%' }}
+			style={{ width: '100%', height: '100%', zIndex: '20px' }}
 		>
 			<TileLayer
 				attribution='&copy; OpenStreetMap contributors'

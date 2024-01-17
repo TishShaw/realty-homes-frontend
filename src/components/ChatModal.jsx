@@ -24,7 +24,7 @@ function ChatModal({ setOpenChat, openChat }) {
 		>
 			<Box sx={style}>
 				<div
-					className='absolute right-8 md:right-0 top-4 md:top-2 text-2xl cursor-pointer w-[89%] md:w-full'
+					className='absolute right-8 md:right-0 top-4 md:top-2 text-2xl cursor-pointer w-[89%] md:w-full z-50'
 					onClick={() => setOpenChat(false)}
 				>
 					<MdClose />

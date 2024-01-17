@@ -32,7 +32,7 @@ const AboutPage = () => {
 				<img
 					src={houseimgae}
 					alt='small-house'
-					className='w-[100%] lg:w-[40%] h-[350px] md:h-[230px] lg:h-[350px] xl:h-[400px] z-10 md:left-0 md:absolute md:top-6 lg:top-[775px] lg:left-[550px] md:px-6 xl:top-[650px] xl:left-[750px]'
+					className='w-[100%] lg:w-[40%] h-[350px] md:h-[230px] lg:h-[350px] xl:h-[400px] z-2 md:left-0 md:absolute md:top-6 lg:top-[775px] lg:left-[550px] md:px-6 xl:top-[650px] xl:left-[750px]'
 				/>
 			</div>
 		</div>
